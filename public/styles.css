@@ -35,7 +35,7 @@ input[type="text"]{
 
 @media screen and (max-width: 768px) {
     form{
-        margin-top: 15px;
+        margin-top: 50px;
         padding: 25px;
         width: 75%;
     }
