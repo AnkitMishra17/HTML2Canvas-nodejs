@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Intern-task-1</title>
+  <title>Sugandh Tea</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -12,12 +13,12 @@
   <link rel="stylesheet" href="../../public/styles.css">
   <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-image: url('../../public/haytruck.png'); background-repeat: no-repeat; background-size: cover;">
     <nav class="navbar d-flex justify-content-center navbar-expand-lg navbar-dark bg-warning">
-        <a class="navbar-brand" href="/">Intern-task</a>
+        <a class="navbar-brand" href="/">Sugandh Tea private limited</a>
     </nav>
   <div class="mt-5 form">
-    <form>
+    <form class="animated fadeIn slow">
         <div class="form-group ">
             <label for="Name">Name</label>
             <input type="text" class="form-control" id="Name" aria-describedby="Name" placeholder="Enter name..">
@@ -42,7 +43,7 @@
     </form>   
     <div id="box"></div><br>
     <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-warning img btn-lg btn-block w-25" name="button" hidden=true>Generate Reciept Image</button>
+      <button type="submit" class="btn btn-warning img w-25" name="button" hidden=true>Generate Reciept Image</button>
     </div>
     <div id="canvasimage" class="mt-5"></div>
     </div>
@@ -71,14 +72,15 @@
       if ((file = $("#upload-image")[0].files[0])) {
         image1 = new Image(320, 160);
         image1.onload = function () {
-            $("#image-wrapper").append(this);
-            console.log(this);
+            $("#image-preview").append(this);
+            // console.log(this);
             $(this).attr("id", "image1");
         }
         image1.src = _URL.createObjectURL(file);
     }
+    
       $('#box').html(`    
-        <div class="container p-5 mt-5">
+        <div class="container p-5 mt-5 bg-white">
           <img src="../../public/download.jpg" alt="Sugandh">
           <p class = "text-dark"> Recieptno: ${Recieptno} </p>
           <div class = "mt-5">
@@ -87,22 +89,27 @@
             </p>
           </div>
           <p class="mt-5">Thank you</p>
-          <div id="image-wrapper"></div>
+          <div id="image-preview"></div>
         </div>
       `);
       
     });
 
     $('.img').click((e)=>{
+      
+      $('.upload-db').attr({hidden: false});
+
       html2canvas($('#box'),{ allowTaint : true,
         onrendered: function(canvas){
           myImage = canvas.toDataURL("image/png");
+          // console.log(myImage);
           $('#canvasimage').append(canvas);
-          //$.ajax({
-          //data: myImage
-          // ....
         }
         });
+        setTimeout(()=>{
+          $('#box').fadeOut(1000);
+          $('.img').fadeOut(1000);
+        },2000);
     });
   </script>
 </body>
